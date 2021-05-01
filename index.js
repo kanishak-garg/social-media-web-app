@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8000;
 
+app.use('/', require('./routers/index'));
 
 app.listen(port, function (err) {
     if (err) {
@@ -9,4 +10,4 @@ app.listen(port, function (err) {
         return;
     }
     console.log(`server running on port: ${port}`);
-})
+});
