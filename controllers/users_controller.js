@@ -17,3 +17,13 @@ module.exports.sign_in = function (req, res) {
         title: "sign_in"
     });
 };
+
+
+module.exports.create = function (req, res) {
+    //TODO create the controller
+}
+
+
+module.exports.createSession = function (req, res) {
+    //TODO create the controller
+}

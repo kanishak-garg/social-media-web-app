@@ -3,7 +3,7 @@
 
 
 <section id="outer">
-    <form action="/store" method="post">
+    <form action="/user/create" method="post">
         <h1>Sign Up</h1>
         <label for="name">Name</label>
         <input type="text" name="name" placeholder="Enter your name" required>
@@ -13,6 +13,9 @@
 
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="password" required>
+
+        <label for="password">confirm Password</label>
+        <input type="password" name="confirm_password" placeholder="confirm password" required>
 
         <button type="submit" id="btn">Register</button>
 
