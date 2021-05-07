@@ -1,8 +1,20 @@
 const User = require('../models/users');
+
+
 module.exports.profile = function (req, res) {
-    return res.render('home', {
-        title: "Profile"
-    });
+    // console.log(req.cookies);
+    if (Object.keys(req.cookies).length === 0) {
+        return res.redirect('/users/sign-in');
+    }
+    var id = req.cookies.user_id;
+    User.findById(id, function (err, user) {
+        if (err) { console.log("error in finding user_profile"); return }
+        return res.render('user_profile', {
+            title: "Profile",
+            user: user
+        });
+    })
+
 };
 
 
@@ -44,19 +56,31 @@ module.exports.create = function (req, res) {
 
 
 module.exports.createSession = function (req, res) {
-    // User.findOne({ email: req.body.email }, function (err, user) {
-    //     if (err) { console.log("error finding the user in sign-in"); return }
+    //check for user n database
+    User.findOne({ email: req.body.email }, function (err, user) {
+        if (err) { console.log("error finding the user in sign-in"); return }
 
-    //     if (!user) {
-    //         console.log("user not exit");
-    //         return res.redirect('back');
-    //     } else {
-    //         if (user.password == req.body.password) {
-    //             console.log("SIGNED in");
-    //             return res.redirect('/');
-    //         } else {
-    //             return res.redirect('back');
-    //         }
-    //     }
-    // });
+        //if user not found
+        if (!user) {
+            console.log("user not exit");
+            return res.redirect('back');
+        } else {  // if user is found
+            //check password match or not
+            if (user.password == req.body.password) {
+                console.log("SIGNED in");
+
+                // create session for the user
+                res.cookie('user_id', user.id);
+                return res.redirect('/users/profile');
+            } else {
+                return res.redirect('back');
+            }
+        }
+    });
+}
+
+
+module.exports.signOut = function (req, res) {
+    res.clearCookie("user_id");
+    return res.redirect('/users/sign-in');
 }

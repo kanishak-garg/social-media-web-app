@@ -1,2 +1,21 @@
+<style>
+    #sign-out {
+        background-color: red;
+        height: 100px;
+        width: 150px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+</style>
+<form action="/users/sign-out" method="POST">
+    <button type="submit" id="sign-out">Sign Out</button>
+</form>
 <h1>codial /profile page <%= title %>
+
 </h1>
+
+
+<h4>
+    name: <%= user.name %> <br> email: <%= user.email %>
+</h4>
