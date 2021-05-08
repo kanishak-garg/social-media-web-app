@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStratergy = require('passport-local');
 
 const User = require('../models/users');
+const { pass } = require('./mongoose');
 
 passport.use(new LocalStratergy({
     usernameField: 'email'
@@ -54,6 +55,14 @@ passport.setAuthenticatedUser = function (req, res, next) {
     }
     next();
 }
+
+
+// passport.seeSignedInPage = function (req, res, next) {
+//     if (req.isAuthenticated()) {
+//        return res.redirect('back');
+//     }
+//     next();
+// }
 
 
 

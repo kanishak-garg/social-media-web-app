@@ -1,12 +1,16 @@
 const User = require('../models/users');
+const passport = require('passport');
 module.exports.profile = function (req, res) {
-    return res.render('home', {
+    return res.render('user_profile', {
         title: "Profile"
     });
 };
 
 
 module.exports.sign_up = function (req, res) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/users/profile');
+    }
     return res.render('sign_up', {
         title: "sign_up"
     });
@@ -14,10 +18,19 @@ module.exports.sign_up = function (req, res) {
 
 
 module.exports.sign_in = function (req, res) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/users/profile');
+    }
+
     return res.render('sign_in', {
         title: "sign_in"
     });
 };
+
+module.exports.sign_out = function (req, res) {
+    req.logout();
+    res.redirect('/');
+}
 
 // creating new user (SIGN UP)
 module.exports.create = function (req, res) {
