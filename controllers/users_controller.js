@@ -44,19 +44,5 @@ module.exports.create = function (req, res) {
 
 
 module.exports.createSession = function (req, res) {
-    // User.findOne({ email: req.body.email }, function (err, user) {
-    //     if (err) { console.log("error finding the user in sign-in"); return }
-
-    //     if (!user) {
-    //         console.log("user not exit");
-    //         return res.redirect('back');
-    //     } else {
-    //         if (user.password == req.body.password) {
-    //             console.log("SIGNED in");
-    //             return res.redirect('/');
-    //         } else {
-    //             return res.redirect('back');
-    //         }
-    //     }
-    // });
+    return res.redirect('/');
 }
