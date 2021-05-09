@@ -1,4 +1,5 @@
 const User = require('../models/users');
+
 const passport = require('passport');
 module.exports.profile = function (req, res) {
     return res.render('user_profile', {
@@ -59,3 +60,4 @@ module.exports.create = function (req, res) {
 module.exports.createSession = function (req, res) {
     return res.redirect('/');
 }
+

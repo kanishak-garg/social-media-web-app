@@ -1,2 +1,10 @@
 <h1>codial / <%= title %>
 </h1>
+
+<section id="feed-posts">
+    <h2>Posts</h2>
+    <form action="/posts/create" method="POST" id="new-post">
+        <textarea name="content" cols="30" rows="3" required placeholder="type here ..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+</section>
