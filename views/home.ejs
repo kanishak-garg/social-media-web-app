@@ -8,3 +8,23 @@
         <input type="submit" value="Post">
     </form>
 </section>
+
+<section id="post-list">
+    <h2>Posts List</h2>
+    <ul>
+        <% for(let post of post_list){ %>
+            <li>
+                <div class="post-content">
+                    <p>
+                        <%= post.content %>
+                            <br>
+                            <%= post.user.name %>
+                    </p>
+                </div>
+            </li>
+
+            <% } %>
+
+    </ul>
+
+</section>
