@@ -1,0 +1,26 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #1186F0;
+    padding: 10px;
+    h3{
+        color: white;
+        font-size: 1.5rem;
+        font-family:  Arial, Helvetica, sans-serif;
+    }    
+}
+
+#headnav {
+    li{
+    text-decoration: none;
+    display: inline;
+    a{
+        text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    font-family:  Arial, Helvetica, sans-serif;
+    padding: 10px;
+}
+    }
+}

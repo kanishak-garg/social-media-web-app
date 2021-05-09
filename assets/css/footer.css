@@ -1,0 +1,6 @@
+footer {
+  background-color: lightgrey;
+  display: flex;
+  justify-content: flex-start; }
+  footer #nav {
+    text-decoration: none; }
