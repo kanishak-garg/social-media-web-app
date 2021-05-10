@@ -37,7 +37,7 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        maxAge: (1000 * 60 * 10)
+        maxAge: (1000 * 60 * 30)
     },
     //mongostore is used to store session keys in the database to prevent logging out on server restart
     store: new mongoStore({
