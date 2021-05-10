@@ -19,12 +19,19 @@
         <% for(let post of post_list){ %>
             <li class="post">
                 <div class="post-content">
-                    <h3>
-                        <%= post.user.name %>
-                    </h3>
-                    <p>
-                        <%= post.content %>
-                    </p>
+                    <div class="details">
+                        <h3>
+                            <%= post.user.name %>
+                        </h3>
+                        <p>
+                            <%= post.content %>
+                        </p>
+                    </div>
+                    <% if(locals.user && locals.user.id==post.user.id){ %>
+                        <div class="delete_post">
+                            <a href="/posts/destroy/<%= post.id %>">Delete Post</a>
+                        </div>
+                        <% } %>
                 </div>
                 <div>
                     <% if(locals.user){ %>
@@ -47,7 +54,9 @@
                                         <%= comment.user.name %>
                                     </small>
                             </p>
-
+                            <% if(locals.user && (locals.user.id==comment.user.id || locals.user.id==post.user.id)){ %>
+                                <a href="/comments/delete/<%= comment.id %>">X</a>
+                                <% } %>
                         </li>
                         <% } %>
                 </ul>

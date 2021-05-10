@@ -17,6 +17,25 @@ module.exports.create = function (req, res) {
             });
         }
     });
-
-
 };
+
+module.exports.delete = function (req, res) {
+    Comment.findById(req.params.id, function (err, comment) {
+        if (err) { console.log("error in finding the comment in delete comment"); return; }
+
+        Post.findById(comment.post, function (err, post) {
+            if (err) { console.log("error in finding the post in delete comment"); return; }
+            if (post) {
+                if (comment && (comment.user == req.user.id || req.user.id == post.user)) {
+                    let postId = comment.post;
+                    comment.remove();
+                    comment.save();
+                    Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }, function (err, post) {
+                        if (err) { console.log("error in finding the post in delete comment"); return; }
+                    });
+                    return res.redirect('back');
+                }
+            }
+        });
+    });
+}

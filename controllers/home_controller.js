@@ -11,8 +11,8 @@ module.exports.home = function (req, res) {
             }
         })
         .exec(function (err, posts) {
-
             if (err) { console.log("error in finding posts"); return }
+
             return res.render('home', {
                 title: "codial",
                 post_list: posts

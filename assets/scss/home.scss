@@ -40,8 +40,9 @@
 }
 
 .post{
-    min-width: 450px;
+    width: 450px;
     min-height: 350px;
+
     border: 1px solid grey;
     border-radius: 1.5rem;
     margin:20px;
@@ -55,8 +56,31 @@
     background-color: lightseagreen;
     padding-left: 20px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     h3,p{
         @include white-fonts();
+    }
+    .detail{
+        width: 60%;
+    }
+}
+
+.delete_post{
+    background-color: red;
+    height: 40px;
+    margin:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.2rem;
+    padding: 5px;
+    a{
+        color:white;
+        text-decoration: none;
+
     }
 }
 
@@ -82,12 +106,12 @@
         width:300px;
         padding-left:5px;
         margin-top:10px;
+        margin-bottom: 10px;
         overflow: hidden;
         border-radius: 0 1.3rem 1.3rem 0;
         overflow: hidden;
         padding-left: 15px;
         font-family: Helvetica, sans-serif;
-    }
     p{
         display: flex;
         flex-direction: column;
@@ -96,5 +120,5 @@
             align-self: flex-end;
         }
     }
-
+    }
 }
