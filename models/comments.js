@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 
-const commentSchema = mongoose.Schema({
+const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
     },
+    // saving the id of user who posted that comment
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    // saving id of post on which the user commented
     post: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'

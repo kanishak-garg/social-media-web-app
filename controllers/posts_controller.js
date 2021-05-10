@@ -12,15 +12,3 @@ module.exports.create = function (req, res) {
 };
 
 
-module.exports.addComment = function (req, res) {
-    //console.log(req.body.content);
-    Comment.create({
-        content: req.body.content,
-        user: req.user._id,
-        post: req.query.id
-    }, function (err, comment) {
-        if (err) { console.log("error in creating the comment"); return; }
-        return res.redirect('back');
-    });
-
-}

@@ -24,10 +24,16 @@
                     </p>
                 </div>
                 <div>
-                    <form action="/posts/comment/?id=<%= post._id %>" id="post-comment" method="POST">
-                        <textarea name="content" cols="20" rows="2" placeholder="Comment here ..." required></textarea>
-                        <input type="submit" value="submit">
-                    </form>
+                    <% if(locals.user){ %>
+                        <!-- 2 ways to sent the posts id one is using the form action (/posts/comment/?id=<%= post._id %>") 
+                            2nd is using hidden input type with predefined value -->
+                        <form action="/comments/create" id="post-comment" method="POST">
+                            <textarea name="content" cols="20" rows="2" placeholder="Comment here ..."
+                                required></textarea>
+                            <input type="hidden" name="post" value="<%= post._id %>">
+                            <input type="submit" value="submit">
+                        </form>
+                        <% } %>
                 </div>
             </li>
 
