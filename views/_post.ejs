@@ -1,0 +1,34 @@
+<li class="post">
+    <div class="post-content">
+        <div class="details">
+            <h3>
+                <%= post.user.name %>
+            </h3>
+            <p>
+                <%= post.content %>
+            </p>
+        </div>
+        <% if(locals.user && locals.user.id==post.user.id){ %>
+            <div class="delete_post">
+                <a href="/posts/destroy/<%= post.id %>">Delete Post</a>
+            </div>
+            <% } %>
+    </div>
+    <div>
+        <% if(locals.user){ %>
+            <!-- 2 ways to sent the posts id one is using the form action (/posts/comment/?id=<%= post._id %>") 
+                2nd is using hidden input type with predefined value -->
+            <form action="/comments/create" id="post-comment" method="POST">
+                <textarea name="content" cols="30" rows="1" placeholder="Comment here ..."
+                    required></textarea>
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <input type="submit" value="submit">
+            </form>
+            <% } %>
+    </div>
+    <ul id="comment-list">
+        <% for(let comment of post.comments){ %>
+            <%- include('_comment',{comment:comment})  -%>
+            <% } %>
+    </ul>
+</li>
