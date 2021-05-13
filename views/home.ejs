@@ -2,35 +2,37 @@
 
 <h1>codial / <%= title %>
 </h1>
+<div id="home-container">
+    <section id="posts-container">
+        <div id="feed-posts">
+            <% if(locals.user){ %>
+                <h2>Posts</h2>
+                <form action="/posts/create" method="POST" id="new-post">
+                    <textarea name="content" cols="90" rows="3" required placeholder="type here ..."></textarea>
+                    <input type="submit" value="Post" id="submit_post">
+                </form>
+                <% } %>
+        </div>
 
-<section id="feed-posts">
-    <% if(locals.user){ %>
-        <h2>Posts</h2>
-        <form action="/posts/create" method="POST" id="new-post">
-            <textarea name="content" cols="90" rows="3" required placeholder="type here ..."></textarea>
-            <input type="submit" value="Post" id="submit_post">
-        </form>
-        <% } %>
+        <div id="post-list">
+            <h2>Posts List</h2>
+            <ul>
+                <% for(let post of post_list){ %>
+                    <%- include('_post',{post:post}) -%>
+
+                    <% } %>
+
+            </ul>
+
+        </div>  
 </section>
 
-<section id="post-list">
-    <h2>Posts List</h2>
-    <ul>
-        <% for(let post of post_list){ %>
-            <%- include('_post',{post:post}) -%>
-
-
-            <% } %>
-
-    </ul>
-
+    <section id="friends-container">
+        <h2>Friends</h2>
+        <% for(let u of all_users){ %>
+            <p>
+                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+            </p>
+    <% } %>
 </section>
-
-<section>
-    <h2>Freinds</h2>
-    <% for(let u of all_users){ %>
-        <p>
-            <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-        </p>
-   <% } %>
-</section>
+</div>

@@ -1,124 +1,140 @@
 @mixin white-fonts {
-    color:white;
-    font-size: 1.2rem;
-    font-family: Arial, Helvetica, sans-serif ;
+  color: white;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#home-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  #posts-container {
+    width: 60%;
   }
-#feed-posts{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  #friends-container {
+    width: 20%;
+    height: 100%;
+    border-left: 1px solid gray;
+    padding: 10px;
+  }
 }
 
-#new-post{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+#feed-posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#submit_post{
-    padding:10px;
-    margin:10px;
-    width:90px;
-    height: 50px;
-    border-radius: 1.5rem;
-    background-color: green;
-    color: gold;
-    font-size: 1.3rem;
+#new-post {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
-#post-list{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    ul{
-        text-decoration: none;
-    }
+#submit_post {
+  padding: 10px;
+  margin: 10px;
+  width: 90px;
+  height: 50px;
+  border-radius: 1.5rem;
+  background-color: green;
+  color: gold;
+  font-size: 1.3rem;
 }
 
-.post{
-    width: 450px;
-    min-height: 350px;
-
-    border: 1px solid grey;
-    border-radius: 1.5rem;
-    margin:20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    // align-items: center;
-}
-
-.post-content{
-    background-color: lightseagreen;
-    padding-left: 20px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    h3,p{
-        @include white-fonts();
-    }
-    .detail{
-        width: 60%;
-    }
-}
-
-.delete_post{
-    background-color: red;
-    height: 40px;
-    margin:10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1.2rem;
-    padding: 5px;
-    a{
-        color:white;
-        text-decoration: none;
-
-    }
-}
-
-
-#post-comment{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    textarea,input{
-        padding:5px
-    }
-}
-
-#comment-list{
-    max-height: 230px;
-    overflow-y:scroll;
+#post-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  ul {
     text-decoration: none;
-    li{
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap-reverse;
-        background-color:#DCF8C8;
-        width:300px;
-        padding-left:5px;
-        margin-top:10px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        border-radius: 0 1.3rem 1.3rem 0;
-        overflow: hidden;
-        padding-left: 15px;
-        font-family: Helvetica, sans-serif;
-    p{
-        display: flex;
-        flex-direction: column;
-        padding-right: 15px;
-        small{
-            align-self: flex-end;
-        }
+  }
+}
+
+.post {
+  width: 450px;
+  min-height: 350px;
+
+  border: 1px solid grey;
+  border-radius: 1.5rem;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  // align-items: center;
+}
+
+.post-content {
+  background-color: lightseagreen;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  h3,
+  p {
+    @include white-fonts();
+  }
+  .details {
+    width: 80%;
+  }
+}
+
+.delete_post {
+  background-color: red;
+  margin: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+  }
+}
+
+#post-comment {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  textarea,
+  input {
+    padding: 5px;
+  }
+}
+
+#comment-list {
+  max-height: 230px;
+  overflow-y: scroll;
+  text-decoration: none;
+  li {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap-reverse;
+    background-color: #dcf8c8;
+    width: 300px;
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 0 1.3rem 1.3rem 0;
+    overflow: hidden;
+    padding-left: 15px;
+    font-family: Helvetica, sans-serif;
+    p {
+      display: flex;
+      flex-direction: column;
+      padding-right: 15px;
+      small {
+        align-self: flex-end;
+      }
     }
-    }
+  }
 }
