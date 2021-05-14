@@ -1,6 +1,7 @@
 const User = require('../models/users');
 
 const passport = require('passport');
+
 module.exports.profile = function (req, res) {
     User.findById(req.params.id,function(err,user){
         if(err){ console.log("error finding user in profile controller"); return; }
@@ -48,6 +49,7 @@ module.exports.sign_in = function (req, res) {
 
 module.exports.sign_out = function (req, res) {
     req.logout();
+    req.flash('success',"you have logged out");
     res.redirect('/');
 }
 
@@ -76,6 +78,7 @@ module.exports.create = function (req, res) {
 
 
 module.exports.createSession = function (req, res) {
+    req.flash('success',"successfully logged in");
     return res.redirect('/');
 }
 

@@ -11,6 +11,9 @@ const passportLocal = require('./config/passport-local-stratergy');
 const { mongo } = require('mongoose');
 const mongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
+const flash = require('connect-flash');
+const myMware = require('./config/middleware');
+
 
 app.use(sassMiddleware({
     src: './assets/scss',
@@ -55,6 +58,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 // set up of router  can use ./router also because by default its /index
+app.use(flash());
+app.use(myMware.setFlash);
 app.use('/', require('./routers/index'));
 
 app.listen(port, function (err) {
