@@ -12,7 +12,7 @@
                 data: newPost.serialize(),    // data to be sent with req
                 success: function(data){  //received data from response
 
-                    let postRender = newPostDom(data.data.post);
+                    let postRender = newPostDom(data.data.post,data.data.username);
                     $('#post-list>ul').prepend(postRender);
                     deletePost($(' .delete-post-button',postRender));
                     noty("success","post added successfully");
@@ -25,12 +25,12 @@
         });
     }
 
-    let newPostDom = function(post){
+    let newPostDom = function(post,username){
         return $(`<li class="post" id="post-${post._id}">
         <div class="post-content">
             <div class="details">
                 <h3>
-                    ${ post.user.name }
+                    ${username}
                 </h3>
                 <p>
                     ${ post.content }
