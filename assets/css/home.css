@@ -80,19 +80,19 @@
     text-decoration: none;
     padding: 5px; }
 
-#post-comment {
+.post-comment {
   display: flex;
   flex-direction: row;
   justify-content: space-around; }
-  #post-comment textarea,
-  #post-comment input {
+  .post-comment textarea,
+  .post-comment input {
     padding: 5px; }
 
-#comment-list {
+.comment-list {
   max-height: 230px;
   overflow-y: scroll;
   text-decoration: none; }
-  #comment-list li {
+  .comment-list li {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap-reverse;
@@ -106,9 +106,9 @@
     overflow: hidden;
     padding-left: 15px;
     font-family: Helvetica, sans-serif; }
-    #comment-list li p {
+    .comment-list li p {
       display: flex;
       flex-direction: column;
       padding-right: 15px; }
-      #comment-list li p small {
+      .comment-list li p small {
         align-self: flex-end; }

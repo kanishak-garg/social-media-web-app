@@ -26,7 +26,7 @@
             </form>
             <% } %>
     </div>
-    <ul id="comment-list">
+    <ul class="comment-list"  id="comment-list-<%= post.id %>">
         <% for(let comment of post.comments){ %>
             <%- include('_comment',{comment:comment})  -%>
             <% } %>

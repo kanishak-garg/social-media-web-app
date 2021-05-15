@@ -3,7 +3,6 @@
     let createPost = function(){
 
         var allDeleteBtns = $('.delete-post-button');
-        console.log(allDeleteBtns);
         for(btn of allDeleteBtns){
             deletePost(btn);
         }
@@ -55,7 +54,7 @@
                     <input type="submit" value="submit">
                 </form>
         </div>
-        <ul id="comment-list">
+        <ul class="comment-list"  id="comment-list-${ post.id}>
             
         </ul>
     </li>`);
