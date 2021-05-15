@@ -82,7 +82,7 @@
             text: message,
             type: status,
             layout : "topRight",
-            timeout : 1500
+            timeout : 1500,
             }).show();
     }
      
