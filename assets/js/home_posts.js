@@ -1,8 +1,13 @@
 {
     
     let createPost = function(){
-        var newPost = $('#new-post');
 
+        var allDeleteBtns = $('.delete-post-button');
+        console.log(allDeleteBtns);
+        for(btn of allDeleteBtns){
+            deletePost(btn);
+        }
+        var newPost = $('#new-post');
         newPost.submit(function(e){
             e.preventDefault();
 
