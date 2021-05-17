@@ -9,11 +9,14 @@
 
 <% if(locals.user.id == profile_user.id){ %>
     <h3>Edit Profile </h3>
-    <form action="/users/update/<%= profile_user.id %>" method="POST">
+    <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
         <label for="name">Name:</label>
         <input type="text" name="name" value="<%= user.name %>">
         <label for="email">Email:</label>
         <input type="email" name="email" value="<%= user.email %>">
+        <input type="file" name="avatar" placeholder="upload Profile picture">
+        <label for="email">Email:</label>
+        
         <input type="submit" value="Save">
     </form>
     <%}%>
