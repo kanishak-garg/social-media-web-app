@@ -27,7 +27,8 @@ app.use(cookieParser());
 app.use(expressLayouts);
 
 app.use(express.static('./assets'));
-
+// make upload path available to browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
 //set up the view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');

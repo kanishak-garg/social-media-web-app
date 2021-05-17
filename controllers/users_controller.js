@@ -1,5 +1,6 @@
 const User = require('../models/users');
-
+const fs = require('fs');
+const path = require('path');
 const passport = require('passport');
 
 module.exports.profile = function (req, res) {
@@ -15,15 +16,46 @@ module.exports.profile = function (req, res) {
     })
 };
 
-module.exports.edit_profile = function(req,res){
+module.exports.edit_profile = async function(req,res){
+    
     if(req.user.id == req.params.id){
-    //we can just pass req.body ,req.body, as it contains same feilds only
-    User.findByIdAndUpdate(req.user.id,{name:req.body.name,email:req.body.email},function(err,user){
-        return res.redirect('back');
-    });
-}else{
-    return res.status(401).send("not authorised");
-}
+
+        try {
+        let user = await User.findById(req.params.id);
+        User.uploadedAvatar(req,res,function(err){
+            if(err){ console.log("multer error in users_controller"); return; }
+
+            user.name = req.body.name;
+            user.email = req.body.email;
+
+            if(req.file){
+                if(user.avatar && fs.existsSync(path.join(__dirname,'..',user.avatar))){
+                    fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                }
+                // set the location of the file
+                user.avatar = User.avatarPath + '/' + req.file.filename;
+            }
+            user.save();
+            return res.redirect('back');
+        });
+        } catch (error) {
+            req.flash("error","can not update the profile");
+            return res.redirect('back');
+        }
+    }else{
+        req.flash("error","can not update the profile");
+            return res.redirect('back');
+    }
+    
+        
+//     if(req.user.id == req.params.id){
+//     //we can just pass req.body ,req.body, as it contains same feilds only
+//     User.findByIdAndUpdate(req.user.id,{name:req.body.name,email:req.body.email},function(err,user){
+//         return res.redirect('back');
+//     });
+// }else{
+//     return res.status(401).send("not authorised");
+// }
 
 }
 
@@ -66,10 +98,14 @@ module.exports.create = function (req, res) {
             console.log("already exists");
         }
         if (!user) {
-            User.create(req.body, function (err, user) {
-                if (err) { console.log("error in creating user with sign up"); return; }
-                return res.redirect('/users/sign-in');
+            User.uploadedAvatar(req,res,function(err){
+                if(err){ console.log("multer error in users_controller"); return; }
+                User.create(req.body, function (err, user) {
+                    if (err) { console.log("error in creating user with sign up"); return; }
+                    return res.redirect('/users/sign-in');
+                });
             });
+            
         } else {
             return res.redirect('back');
         }
