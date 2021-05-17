@@ -14,14 +14,15 @@ module.exports.create = async function (req, res) {
                 
         await post.comments.unshift(comment);
         await post.save();
-        if(req.xhr){
-            return res.json({
-                data:{
-                    comment:comment,
-                    username: req.user.name,
-                    postId: post.id
+        if (req.xhr){
+            // Similar for comments to fetch the user's id!
+            commentt = await comment.populate('user', 'name').execPopulate();
+
+            return res.status(200).json({
+                data: {
+                    comment: commentt
                 },
-                message: 'comment created'
+                message: "Post created!"
             });
         }
         req.flash('success',"comment added successfully!!");
@@ -63,6 +64,16 @@ module.exports.delete = async function (req, res) {
             comment.save();
         
             let updatedPost = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
+
             req.flash('success',"comment deleted successfully!!");
         }else{
             req.flash('error',"You can not delete the comment");

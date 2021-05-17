@@ -14,11 +14,11 @@
             </div>
             <% } %>
     </div>
-    <div>
+    <div class="post-comments">
         <% if(locals.user){ %>
             <!-- 2 ways to sent the posts id one is using the form action (/posts/comment/?id=<%= post._id %>") 
                 2nd is using hidden input type with predefined value -->
-            <form action="/comments/create" id="post-comment" method="POST">
+            <form action="/comments/create" class="post-comment" id="post-<%= post._id %>-comments-form" method="POST">
                 <textarea name="content" cols="30" rows="1" placeholder="Comment here ..."
                     required></textarea>
                 <input type="hidden" name="post" value="<%= post._id %>">
@@ -26,9 +26,12 @@
             </form>
             <% } %>
     </div>
-    <ul class="comment-list"  id="comment-list-<%= post.id %>">
+    <div class="post-comments-list">
+
+    <ul class="comment-list" id="post-comments-<%= post._id %>">
         <% for(let comment of post.comments){ %>
             <%- include('_comment',{comment:comment})  -%>
             <% } %>
-    </ul>
+    </ul>     
+</div>
 </li>

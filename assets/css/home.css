@@ -33,13 +33,13 @@
   color: gold;
   font-size: 1.3rem; }
 
-#post-list {
+#posts-list-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 80px; }
-  #post-list ul {
+  #posts-list-container ul {
     text-decoration: none; }
 
 .post {
