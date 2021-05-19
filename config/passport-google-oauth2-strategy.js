@@ -5,7 +5,7 @@ const User = require('../models/users');
 
 // ask  passport to use new stratergy
 passport.use(new googleStrategy({
-    
+   // add credential here
   },
   function(accessToken, refreshToken, profile, done) {
       // profile contains details of the user trying to login
