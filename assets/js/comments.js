@@ -10,13 +10,11 @@ class PostComments{
         this.postId = postId;
         this.postContainer = $(`#post-${postId}`);
         this.newCommentForm = $(`#post-${postId}-comments-form`);
-        console.log("postcontainer:  ",this.postContainer);
         this.createComment(postId);
 
         let self = this;
         // call for all the existing comments
         $(' .delete-comment-button',this.postContainer).each(function(){
-            console.log("this.postContainer", this.postContainer);
             self.deleteComment($(this));
         });
     }
@@ -24,7 +22,6 @@ class PostComments{
 
     createComment(postId){
         let pSelf = this;
-        console.log(this.newCommentForm);
         this.newCommentForm.submit(function(e){
             
             e.preventDefault();
@@ -37,8 +34,6 @@ class PostComments{
                 success: function(data){
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
-                    console.log(newComment);
-                    console.log(`#post-comments-${postId}`);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
                     new Noty({
