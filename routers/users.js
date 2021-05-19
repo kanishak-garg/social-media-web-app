@@ -14,7 +14,18 @@ router.post('/create', userController.create);
 router.post('/create-session', passport.authenticate(
     'local',
     { failureRedirect: '/users/sign-in' }
-), userController.createSession)
+), userController.createSession);
+
+router.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}));
+router.get('/auth/google/callback',passport.authenticate(
+    'google',
+    { failureRedirect: '/users/sign-in' }
+    ), userController.createSession);
+
+
+
+
 module.exports = router;
+
 
 
