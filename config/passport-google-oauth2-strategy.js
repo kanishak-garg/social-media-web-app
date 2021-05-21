@@ -2,9 +2,8 @@ const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto');
 const User = require('../models/users');
-const credentials = require('../google_credential');
+const credentials = require('../credentials/google_credential');
 // ask  passport to use new stratergy
-console.log(credentials);
 passport.use(new googleStrategy({
     // add credentials here
     clientID: credentials.clientID,
