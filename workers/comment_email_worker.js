@@ -6,4 +6,4 @@ queue.process('emails',function(job,done){
 
     commentMailer.newComment(job.data);
     done();
-})
+});

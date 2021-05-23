@@ -10,6 +10,10 @@ router.get('/sign-up', userController.sign_up);
 router.get('/sign-in', userController.sign_in);
 router.get('/sign-out', userController.sign_out);
 router.post('/create', userController.create);
+router.get('/forgot-password',userController.forgot_password);
+router.post('/reset-password',userController.reset_password);
+router.post('/update-password/:token',userController.update_password);
+router.get('/reset-password/:token',userController.reset_page);
 
 router.post('/create-session', passport.authenticate(
     'local',

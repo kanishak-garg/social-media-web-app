@@ -18,7 +18,7 @@ module.exports.create = async function (req, res) {
                 
         await post.comments.unshift(comment);
         await post.save();
-        commentt = await comment.populate('user', 'name email').execPopulate();
+        comment = await comment.populate('user', 'name email').execPopulate();
         // commentMailer.newComment(comment);
         let job = queue.create('emails',comment).save(function(err){
             if(err){

@@ -1,7 +1,11 @@
 const User = require('../models/users');
+const Token = require('../models/user_token');
 const fs = require('fs');
 const path = require('path');
 const passport = require('passport');
+const queue = require('../config/kue');
+const passwordWorker = require('../workers/reset_password_worker');
+const { response } = require('express');
 
 module.exports.profile = function (req, res) {
     User.findById(req.params.id,function(err,user){
@@ -83,6 +87,59 @@ module.exports.sign_out = function (req, res) {
     req.logout();
     req.flash('success',"you have logged out");
     res.redirect('/');
+}
+
+module.exports.forgot_password = function(req,res){
+    return res.render('forgot_password.ejs',{
+        title:"forgot password"
+    })
+}
+
+module.exports.reset_page = function(req,res){
+    return res.render('password_reset.ejs',{
+        title:"reset password",
+        token:req.params.token
+    })
+}
+
+module.exports.reset_password = async function(req,res){
+    let user = await User.findOne({email:req.body.email});
+    if(!user){
+        req.flash("error","User does not exist");
+        return res.redirect('back');
+    }
+    let job = queue.create('resets',user).priority('high').save(function(err){
+        if(err){
+            console.log("error in adding job to queue (users_controller)");
+            return;
+        }
+        
+        console.log("job created",job.id);
+    })
+    return res.redirect('/users/sign-in');
+}
+
+module.exports.update_password = async function(req,res){
+    try{
+    if(req.body.password != req.body.confirm_password){
+        return;
+    }
+    let token = await Token.findOne({accessToken:req.params.token});
+    if(token && token.valid){
+        let user = await User.findById(token.user);
+        if(user){
+            user.password = req.body.password;
+            token.valid = false;
+        }
+        user.save();
+        token.save();
+        req.flash("success","password updated");
+        return res.redirect("/users/sign-in");
+    }}catch(err){
+        console.log("error in update_password (user controller)"); 
+        req.flash("error","could not update password retry!!");
+        return;
+    }
 }
 
 // creating new user (SIGN UP)
