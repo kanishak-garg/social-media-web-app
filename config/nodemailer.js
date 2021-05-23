@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
 const auth_credential = require('../credentials/nodemailer_credential');
+console.log(auth_credential);
 let transporter = nodemailer.createTransport({
     service:"gmail",
     host: "smtp.gmail.com",
@@ -9,10 +10,9 @@ let transporter = nodemailer.createTransport({
     secure: false, // true for 465, false for other ports
     auth: {
         user: auth_credential.user,
-        password: auth_credential.password 
+        pass: auth_credential.password 
     },
   });
-
 
 let renderTemplate = (data, relativePath) => {
     let mailHTML;
@@ -27,7 +27,7 @@ let renderTemplate = (data, relativePath) => {
     return mailHTML;
 }
 
-module.exports ={
+module.exports = {
     transporter:transporter,
     renderTemplate: renderTemplate
 }
