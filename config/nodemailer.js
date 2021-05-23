@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
 const auth_credential = require('../credentials/nodemailer_credential');
-console.log(auth_credential);
 let transporter = nodemailer.createTransport({
     service:"gmail",
     host: "smtp.gmail.com",
