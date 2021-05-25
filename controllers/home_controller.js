@@ -6,10 +6,14 @@ try{
     let posts = await Post.find({})
     .sort('-createdAt')
         .populate('user')
+        .populate('likes')
         .populate({
             path: 'comments',
             populate: {
                 path: 'user'
+            },
+            populate:{
+                path:'likes'
             }
         });
 

@@ -3,7 +3,10 @@
   font-size: 1.2rem;
   font-family: Arial, Helvetica, sans-serif;
 }
-
+.hide {
+  display: none;
+  // visibility: hidden;
+}
 #home-container {
   display: flex;
   flex-direction: row;
@@ -77,6 +80,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
+  position: relative;
   h3,
   p {
     @include white-fonts();
@@ -135,6 +139,40 @@
       small {
         align-self: flex-end;
       }
+    }
+  }
+}
+
+// COMMENTS LIKE
+#like_div_comment {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  .commentlike {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+  }
+  .like_icon {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+// post like
+.like_div_post {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  .Postlike {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    .like_icon_post {
+      height: 100%;
+      width: 100%;
+      color: red;
     }
   }
 }

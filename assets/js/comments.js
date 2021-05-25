@@ -12,10 +12,14 @@ class PostComments{
         this.newCommentForm = $(`#post-${postId}-comments-form`);
         this.createComment(postId);
 
+
         let self = this;
         // call for all the existing comments
         $(' .delete-comment-button',this.postContainer).each(function(){
             self.deleteComment($(this));
+        });
+        $(' .comment-like',this.postContainer).each(function(){
+            self.likeComment($(this));
         });
     }
 
@@ -35,7 +39,7 @@ class PostComments{
                     let newComment = pSelf.newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
-
+                    pSelf.likeComment($(' .comment-like',newComment));
                     new Noty({
                         theme: 'relax',
                         text: "Comment published!",
@@ -59,14 +63,20 @@ class PostComments{
         // I've added a class 'delete-comment-button' to the delete comment link and also id to the comment's li
         return $(`<li id="comment-${comment._id}">
         <p>
-        <small><a class="delete-comment-button" href="/comments/delete/${comment._id}">X</a></small>
-            ${comment.content } <br>
+            <small><a class="delete-comment-button" href="/comments/delete/${comment._id}">X</a></small>
+            ${ comment.content } <br>
                 <small>
-                    ${ comment.user.name}
+                ${ comment.user.name}
                 </small>
+                <div id="like_div_comment">
+                    <a href="/likes/toggle/?id=${ comment._id }&type=Comment" class="comment-like" id="like-${comment._id}">
+                        <i class="far fa-thumbs-up like_icon_comment "></i>
+                        <i class="fas fa-thumbs-up like_icon_comment hide"></i>  
+                    </a>
+                </div>
         </p>
-            
-            </li>`);
+        <p id="count-${comment._id}">likes: <strong id="counts">0</strong></p>
+    </li>`);
     }
 
 
@@ -94,5 +104,37 @@ class PostComments{
             });
 
         });
+    }
+
+    likeComment(likeLink){
+        let likeID = $(likeLink).prop('id');
+        // console.log(postID);
+        let like_icon = $(`#${likeID} .like_icon_comment`);
+
+        let commentID = likeID.slice(5);
+
+        $(likeLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type:'get',
+                url: $(likeLink).prop('href'),
+                success: function(data){
+                    like_icon.toggleClass('hide');
+                    var count = $(`#count-${commentID} #counts`).text();
+
+                    if(data.data.deleted){
+                        count--;
+                    }else{
+                        count++;
+                    }
+                    $(`#count-${commentID} strong`).html(count);
+                },error: function(error){
+                    console.log(error);
+                }
+
+            })
+
+        })
     }
 }

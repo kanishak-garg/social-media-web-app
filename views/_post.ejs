@@ -7,7 +7,17 @@
             <p>
                 <%= post.content %>
             </p>
+            <p id="count-<%=post.id%>">likes: <strong id="counts"><%=post.likes.length%></strong></p>
+
         </div>
+        <%if(locals.user){%>
+        <div class="like_div_post">
+            <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="Postlike" id="like-<%=post.id%>">
+                <i class="far fa-thumbs-up fa-2x like_icon_post "></i>
+                <i class="fas fa-thumbs-up fa-2x like_icon_post hide"></i>  
+            </a>
+        </div>
+        <%}%>
         <% if(locals.user && locals.user.id==post.user.id){ %>
             <div class="delete_post">
                 <a class= "delete-post-button" href="/posts/destroy/<%= post.id %>">Delete</a>

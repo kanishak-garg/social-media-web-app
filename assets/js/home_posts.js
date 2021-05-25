@@ -1,11 +1,6 @@
 {
-    // import {createComment} from './comments.js';
     let createPost = function(){
-
-        // var allDeleteBtns = $('.delete-post-button');
-        // for(btn of allDeleteBtns){
-        //     deletePost(btn);
-        // }
+        
         var newPost = $('#new-post');
         newPost.submit(function(e){
             e.preventDefault();
@@ -18,6 +13,7 @@
                     let postRender = newPostDom(data.data.post,data.data.username);
                     $('#posts-list-container>ul').prepend(postRender);
                     deletePost($(' .delete-post-button',postRender));
+                    likePost($(' .Postlike',postRender),data.data.post._id);
                     new PostComments(data.data.post._id);
                     noty("success","post added successfully");
                 },error: function(error){
@@ -39,6 +35,14 @@
                 <p>
                     ${ post.content }
                 </p>
+                <p id="count-${post._id}">likes: <strong id="counts">0</strong></p>
+
+            </div>
+            <div class="like_div_post">
+                <a class="Postlike" href="/likes/toggle/?id=${post._id}&type=Post" id="like-${post._id}">
+                    <i class="far fa-thumbs-up fa-2x like_icon_post"></i>
+                    <i class="fas fa-thumbs-up fa-2x hide like_icon_post"></i>  
+                </a>
             </div>
                 <div class="delete_post">
                     <a class= "delete-post-button" href="/posts/destroy/${ post._id }">Delete</a>
@@ -60,9 +64,12 @@
 
 
     let deletePost = function(deleteLink){
+        // console.log(deleteLink);
+        // let likeID = $(deleteLink).prop('href');
+        // console.log(likeID);
         $(deleteLink).click(function(e){
             e.preventDefault();
-
+            
             $.ajax({
                 type:'get',
                 url: $(deleteLink).prop('href'),
@@ -77,6 +84,41 @@
             })
         });
     }
+
+    let likePost = function(likeLink,postID){
+        // console.log("likelink",likeLink);
+        let likeID = $(likeLink).prop('id');
+        // console.log(postID);
+        let like_icon = $(`#${likeID} .like_icon_post`);
+        // console.log("like icon",like_icon[0]);
+        $(likeLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type:'get',
+                url: $(likeLink).prop('href'),
+                success: function(data){
+                    noty("success","liked the post");
+                    like_icon.toggleClass('hide');
+                    var count = $(`#count-${postID} #counts`).text();
+
+                    if(data.data.deleted){
+                        count--;
+                    }else{
+                        count++;
+                    }
+                    $(`#count-${postID} strong`).html(count);
+                },error: function(error){
+                    noty("error","error in ling the post");
+                    console.log(error);
+                }
+
+            })
+
+        })
+    }
+
+   
     
     let noty = function(status,message){
         new Noty({
@@ -93,6 +135,7 @@
     // loop over all the existing posts on the page (when the window loads for the first time) and call the delete post method on delete link of each, also add AJAX (using the class we've created) to the delete button of each
     let convertPostsToAjax = function(){
         $('#posts-list-container>ul>li').each(function(){
+
             let self = $(this);
             let deleteButton = $(' .delete-post-button', self);
             deletePost(deleteButton);
@@ -100,6 +143,9 @@
             // get the post's id by splitting the id attribute
             let postId = self.prop('id').split("-")[1]
             new PostComments(postId);
+            
+            let likeButton = $(' .Postlike',self);
+            likePost(likeButton,postId);
         });
     }
 

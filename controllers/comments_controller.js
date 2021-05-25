@@ -32,7 +32,7 @@ module.exports.create = async function (req, res) {
             // Similar for comments to fetch the user's id!
             return res.status(200).json({
                 data: {
-                    comment: commentt
+                    comment: comment
                 },
                 message: "Post created!"
             });
