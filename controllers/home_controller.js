@@ -20,7 +20,6 @@ try{
     if(req.user){
         let currentUser = await User.findById(req.user._id).populate('friends');
         friends = currentUser.friends;
-        console.log(friends.name);
     }
     return res.render('home', {
                     title: "codial",

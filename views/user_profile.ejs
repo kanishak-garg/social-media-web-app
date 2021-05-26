@@ -9,7 +9,7 @@
     <%= profile_user.email %>
 </p>
 <% if(locals.user && locals.user.friends.includes(profile_user._id)){%>
-    <a href="/friend/remove">Remove</a>
+    <a href="/friends/remove/<%= profile_user.id %>">Remove friend</a>
     <%}else{%>
         <a href="/friends/add/<%= profile_user.id %>">Add Friend</a>
         <%} %>

@@ -12,7 +12,7 @@ const friendSchema = new mongoose.Schema({
         required:true
     }
 },{
-    
+    timestamps:true
 });
 
 const Friend = mongoose.model('Friend',friendSchema);
