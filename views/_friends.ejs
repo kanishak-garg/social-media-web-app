@@ -2,7 +2,7 @@
     <h2>Friends</h2>
     <% for(let friend of friends){ %>
         <p>
-            <a href="/users/profile/<%= friend.id %>"><%= friend %></a>
+            <a href="/users/profile/<%= friend.id %>"><%= friend.name %></a>
         </p>
 <% } %>
 </section>

@@ -15,11 +15,10 @@ try{
                 path:'likes'
             }
         });
-        console.log(posts.likes.user);
     let users = await User.find({});
     let friends;    
     if(req.user){
-        let currentUser = req.user.populate('friends');
+        let currentUser = await User.findById(req.user._id).populate('friends');
         friends = currentUser.friends;
         console.log(friends.name);
     }
