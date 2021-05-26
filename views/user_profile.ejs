@@ -1,3 +1,8 @@
+<style>
+    .hide{
+        display:none;
+    }
+</style>
 <h1>profile page
 </h1>
 
@@ -8,11 +13,18 @@
 <p>
     <%= profile_user.email %>
 </p>
+
+        <div class="toggle-friend-btn">
+            <% var added="",notadded=""; %>
 <% if(locals.user && locals.user.friends.includes(profile_user._id)){%>
-    <a href="/friends/remove/<%= profile_user.id %>">Remove friend</a>
+    <% added="hide" %>
     <%}else{%>
-        <a href="/friends/add/<%= profile_user.id %>">Add Friend</a>
+        <% notadded="hide" %>
         <%} %>
+        <a href="/friends/add/<%= profile_user.id %>" id="add-friend-<%= profile_user.id %>" class="add-friend <%=added%>">add friend</a>
+        <a href="/friends/remove/<%= profile_user.id %>" id="remove-friend-<%= profile_user.id %>" class="remove-friend <%=notadded%>">remove Friend</a>
+        </div>
+
 <% if(locals.user.id == profile_user.id){ %>
     <h3>Edit Profile </h3>
     <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
@@ -26,3 +38,4 @@
     </form>
     <%}%>
 
+    <script src="/js/friends.js"></script>

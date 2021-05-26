@@ -19,6 +19,12 @@ module.exports.addFriend = async function(req,res){
         requestSent.friends.push(req.user._id);
         requestSent.save();
 
+        if(req.xhr){
+            return res.status(200).json({
+                message:"friend added successfully"
+            })
+        }
+
         req.flash("success","friend added");
         return res.redirect('/');
     }catch(err){
@@ -37,7 +43,14 @@ module.exports.removeFriend = async function(req,res){
         // finding and deleting as from and to can be in either way
         await Friend.findOneAndDelete({from: req.user._id,to: req.params.id});        
         await Friend.findOneAndDelete({to: req.user._id,from: req.params.id});
-        res.redirect('back');
+
+        if(req.xhr){
+            return res.status(200).json({
+                message:"friend deleted successfully"
+            });
+        }
+
+        return res.redirect('back');
     }catch(err){
         console.log(err);
         return res.redirect('back');
