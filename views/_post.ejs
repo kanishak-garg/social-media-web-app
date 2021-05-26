@@ -10,11 +10,19 @@
             <p id="count-<%=post.id%>">likes: <strong id="counts"><%=post.likes.length%></strong></p>
 
         </div>
+
         <%if(locals.user){%>
         <div class="like_div_post">
             <a href="/likes/toggle/?id=<%= post._id %>&type=Post" class="Postlike" id="like-<%=post.id%>">
-                <i class="far fa-thumbs-up fa-2x like_icon_post "></i>
-                <i class="fas fa-thumbs-up fa-2x like_icon_post hide"></i>  
+                <% var liked="",notliked="hide" %>
+                <% var likes = post.likes %>
+                <% for(like in likes){%>
+                    <% if(likes[like].user == locals.user.id){%>
+                        <%liked="hide";notliked=""; break; %>
+                        <%} %>
+                    <%} %>
+                <i class="far fa-thumbs-up fa-2x like_icon_post <%=liked%>"></i>
+                <i class="fas fa-thumbs-up fa-2x like_icon_post <%=notliked%>"></i>  
             </a>
         </div>
         <%}%>

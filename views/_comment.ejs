@@ -7,12 +7,21 @@
             <small>
                 <%= comment.user.name %>
             </small>
+            <%if(locals.user){%>
             <div id="like_div_comment">
                 <a href="/likes/toggle/?id=<%= comment._id %>&type=Comment" class="comment-like" id="like-<%=comment._id%>">
-                    <i class="far fa-thumbs-up like_icon_comment "></i>
-                    <i class="fas fa-thumbs-up like_icon_comment hide"></i>  
+                    <% var liked="",notliked="hide" %>
+                    <% var likes = comment.likes %>
+                    <% for(like in likes){%>
+                        <% if(likes[like].user == locals.user.id){%>
+                            <%liked="hide";notliked=""; break; %>
+                            <%} %>
+                        <%} %>
+                    <i class="far fa-thumbs-up like_icon_comment  <%=liked%>"></i>
+                    <i class="fas fa-thumbs-up like_icon_comment <%=notliked%>"></i>  
                 </a>
             </div>
+            <%}%>
     </p>
     <p id="count-<%=comment.id%>">likes: <strong id="counts"><%=post.likes.length%></strong></p>
 

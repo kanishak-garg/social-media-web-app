@@ -10,7 +10,7 @@
                 url: '/posts/create',
                 data: newPost.serialize(),    // data to be sent with req
                 success: function(data){  //received data from response
-                    let postRender = newPostDom(data.data.post,data.data.username);
+                    let postRender = newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(postRender);
                     deletePost($(' .delete-post-button',postRender));
                     likePost($(' .Postlike',postRender),data.data.post._id);
@@ -109,7 +109,7 @@
                     }
                     $(`#count-${postID} strong`).html(count);
                 },error: function(error){
-                    noty("error","error in ling the post");
+                    noty("error","error in like the post");
                     console.log(error);
                 }
 

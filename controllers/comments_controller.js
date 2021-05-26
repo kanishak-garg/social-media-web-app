@@ -3,7 +3,7 @@ const Post = require('../models/posts');
 const commentMailer = require('../mailers/comments_mailer');
 const queue = require('../config/kue');
 const commentWorker = require('../workers/comment_email_worker');
-
+const Like = require('../models/likes');
 module.exports.create = async function (req, res) {
     //console.log(req.body.content);
     //using async
@@ -72,6 +72,7 @@ module.exports.delete = async function (req, res) {
     if(post){
         if (comment && (comment.user == req.user.id || req.user.id == post.user)) {
             let postId = comment.post;
+            Like.deleteMany({likeable:comment.id});
             comment.remove();
             comment.save();
         
