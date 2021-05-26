@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const friendSchema = new mongoose.model({
+const friendSchema = new mongoose.Schema({
     from:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
@@ -12,7 +12,7 @@ const friendSchema = new mongoose.model({
         required:true
     }
 },{
-    timestamps:true
+    
 });
 
 const Friend = mongoose.model('Friend',friendSchema);

@@ -8,7 +8,11 @@
 <p>
     <%= profile_user.email %>
 </p>
-
+<% if(locals.user && locals.user.friends.includes(profile_user._id)){%>
+    <a href="/friend/remove">Remove</a>
+    <%}else{%>
+        <a href="/friends/add/<%= profile_user.id %>">Add Friend</a>
+        <%} %>
 <% if(locals.user.id == profile_user.id){ %>
     <h3>Edit Profile </h3>
     <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">

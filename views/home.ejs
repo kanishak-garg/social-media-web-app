@@ -26,15 +26,13 @@
 
         </div>  
 </section>
+<div id="friend-user-list">
+    <% if(locals.user){%>
+        <%- include('_friends',{friends:friends}) -%>
+        <%} %>
+    <%- include('_all_users',{all_users:all_users}) -%>
+</div>
 
-    <section id="friends-container">
-        <h2>Friends</h2>
-        <% for(let u of all_users){ %>
-            <p>
-                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-            </p>
-    <% } %>
-</section>
 </div>
 
 

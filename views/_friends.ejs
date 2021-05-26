@@ -1,0 +1,8 @@
+<section id="friends-container">
+    <h2>Friends</h2>
+    <% for(let friend of friends){ %>
+        <p>
+            <a href="/users/profile/<%= friend.id %>"><%= friend %></a>
+        </p>
+<% } %>
+</section>
