@@ -1,0 +1,58 @@
+#chatter {
+  height: 350px;
+  width: 400px;
+  padding: 10px;
+  position: fixed;
+  bottom: 0px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 3px solid black;
+  background-color: lightgrey;
+  #chatbox {
+    height: 80%;
+    overflow-y: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    .other-message,
+    .self-message {
+      height: auto;
+      width: auto;
+      max-width: 70%;
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 10px;
+      margin: 0px 4px;
+    }
+    .other-message {
+      align-self: flex-start;
+      background-color: crimson;
+    }
+    .self-message {
+      align-self: flex-end;
+      background-color: green;
+    }
+  }
+  #messenger {
+    position: relative;
+    width: 100%;
+    #sender {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 100%;
+      position: relative;
+      height: 20px;
+      #message {
+        width: 70%;
+        padding: 2px 6px;
+        margin: 0px 10px;
+      }
+      #send {
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/home.css">
-
+<link rel="stylesheet" href="/css/chat.css">
 <h1>codial / <%= title %>
 </h1>
 <div id="home-container">
@@ -32,6 +32,9 @@
         <%} %>
     <%- include('_all_users',{all_users:all_users}) -%>
 </div>
+
+
+<%- include('_chat'); %>
 
 </div>
 
