@@ -39,39 +39,42 @@ class chatEngine{
                     user_email:self.userEmail,
                     chatroom: 'codeial'
                 });
-
             }
         });
 
         self.socket.on('receive_message',function(data){
             console.log("message received",data.message);
-
-            let newMessage = $('<li>');
-
-            let messageType = 'other-message';
-            
+            let socketData = data;
             if(data.user_email == self.userEmail){
-                messageType = 'self-message';
+                return;
             }
+            $.ajax({
+                type: 'post',
+                url: '/send-message',
+                data: data,
+                success: function(data){
+                    let newMessage = $('<li>');
 
-            newMessage.append($('<sub>',{
-                'html':data.user_email
-            }));
+                    let messageType = 'other-message';            
+                    if(socketData.user_email == self.userEmail){
+                        messageType = 'self-message';
+                    }
+                    
+                    newMessage.append($('<sub>',{
+                        'html':data.data.newMessage.user.name
+                    }));
 
-            newMessage.append($('<span>',{
-                'html':data.message
-            }));
+                    newMessage.append($('<span>',{
+                        'html':data.data.newMessage.content
+                    }));
 
-            newMessage.addClass(messageType);
-
-            $('#chatbox').append(newMessage);
+                    newMessage.addClass(messageType);
+                    $('#chatbox').append(newMessage);
+            }, error: function(error){
+                    console.log(error.responseText);
+                }
+            });
 
         })
-
-
-
-        
-
-
     }
 }

@@ -1,12 +1,20 @@
 <% if(locals.user){ %>
 <div id="chatter">
     <ul id="chatbox">
-        <li class="other-message">
-            <span>hi kanishak</span>
-        </li>
-        <li class="self-message">
-            <span>hello!!</span>
-        </li>
+        <% for(let i in chat_room.messages){ %>
+            <% let messageType = "other-message" %>
+            <% if(chat_room.messages[i].user == locals.user.id){%>
+                
+                <% messageType = "self-message" %>
+            <%} %>
+            <li class="<%= messageType %>">
+                <span>
+                    <sub><%= chat_room.messages[i].user.name %></sub>
+                    <%= chat_room.messages[i].content %>
+                </span>
+            </li>
+
+        <%} %>
     </ul>
     <div id="messenger">
         <form action="/send-message" id="sender">

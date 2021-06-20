@@ -3,18 +3,27 @@ const chatRoom = require('../models/chatRooms');
 
 module.exports.send_message = async function(req,res){    
     try{
-       let newMessage = await Message.create({
-            content:req.body.message,
-            user: req.user
-        });
-        let room = await chatRoom.findOne({name:'codeial'});
-        if(!room){
-            room = await chatRoom.create({
-                name:'codeial'
-            });
+        if (req.xhr){
+            let newMessage = await Message.create({
+                    content:req.body.message,
+                    user: req.user._id
+                });
+                newMessage.populate('user','name email').execPopulate();
+                let room = await chatRoom.findOne({name:'codeial'});
+                if(!room){
+                    room = await chatRoom.create({
+                        name:'codeial'
+                    });
+                }
+                await room.messages.push(newMessage);
+                room.save();
+                return res.status(200).json({
+                    data: {
+                        newMessage:newMessage
+                    },
+                    message: "message sent!"
+                });
         }
-        await room.messages.append(newMessage);
-
         req.flash('success',"message sent!!");
         return res.redirect('back');
         }catch(err){
