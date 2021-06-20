@@ -45,6 +45,6 @@
 <script src="/js/chat_engine.js"></script>
 <% if(locals.user){ %>
     <script>
-        new chatEngine('chatter','<%= user._id %>');
+        new chatEngine('chatter','<%= user.email %>');
     </script>
 <% } %>
