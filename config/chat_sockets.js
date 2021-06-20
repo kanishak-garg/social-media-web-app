@@ -14,7 +14,11 @@ module.exports.chatSockets = function(socketServer){
 
             // in(data.chatroom) will emit event in particular room io.emit() will wmit it all over
             io.in(data.chatroom).emit('user_joined',data);
-        })
+        });
+
+        socket.on('send_message',function(data){
+            io.in(data.chatroom).emit('receive_message',data);
+        });
     
     })
 }
