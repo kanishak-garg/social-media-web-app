@@ -1,8 +1,7 @@
 class chatEngine{
     constructor(chatBoxId, userEmail){
-        this.chatBoxId = `#${chatBoxId}`;
-        this.userEmail = `#${userEmail}`;
-
+        this.chatBoxId = `${chatBoxId}`;
+        this.userEmail = `${userEmail}`;
         // io comes from socket.io cdn in home.js(accessable globally)
         // 5000 is socket servers port
         this.socket = io.connect('http://localhost:5000');
@@ -37,10 +36,10 @@ class chatEngine{
                 $.ajax({
                     type: 'post',
                     url: '/send-message',
-                    data: msg,
+                    data:{'message': msg },
                     success: function(data){
+                        console.log("data",data);
                         let newMessage = $('<li>');
-                        messageType = 'self-message';
                         
                         newMessage.append($('<sub>',{
                             'html':data.data.newMessage.user.name
@@ -50,53 +49,38 @@ class chatEngine{
                             'html':data.data.newMessage.content
                         }));
     
-                        newMessage.addClass(messageType);
+                        newMessage.addClass('self-message');
                         $('#chatbox').append(newMessage);
+                        self.socket.emit('send_message',{
+                            'data':data,
+                            'chatroom':'codeial'
+                        });
                 }, error: function(error){
                         console.log(error.responseText);
                     }
-                });
-                self.socket.emit('send_message',{
-                    message:msg,
-                    user_email:self.userEmail,
-                    chatroom: 'codeial'
                 });
             }
         });
 
         self.socket.on('receive_message',function(data){
-            console.log("message received",data.message);
-            let socketData = data;
-            if(data.user_email == self.userEmail){
+            console.log("message received",data);
+            console.log('email check ',data.data.data.newMessage.user.email,self.userEmail);
+            if(data.data.data.newMessage.user.email == self.userEmail){
+               
                 return;
             }
-            $.ajax({
-                type: 'post',
-                url: '/send-message',
-                data: data,
-                success: function(data){
-                    let newMessage = $('<li>');
+            let newMessage = $('<li>');
+            
+            newMessage.append($('<sub>',{
+                'html':data.data.data.newMessage.user.name
+            }));
 
-                    let messageType = 'other-message';            
-                    if(socketData.user_email == self.userEmail){
-                        messageType = 'self-message';
-                    }
-                    
-                    newMessage.append($('<sub>',{
-                        'html':data.data.newMessage.user.name
-                    }));
+            newMessage.append($('<span>',{
+                'html':data.data.data.newMessage.content
+            }));
 
-                    newMessage.append($('<span>',{
-                        'html':data.data.newMessage.content
-                    }));
-
-                    newMessage.addClass(messageType);
-                    $('#chatbox').append(newMessage);
-            }, error: function(error){
-                    console.log(error.responseText);
-                }
-            });
-
-        })
+            newMessage.addClass('other-message');
+            $('#chatbox').append(newMessage);
+        });
     }
 }
