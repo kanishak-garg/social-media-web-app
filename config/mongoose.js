@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const env = require('./environment');
 
-mongoose.connect('mongodb://localhost:27017/codial_development',{ useNewUrlParser: true });
+mongoose.connect(`mongodb://localhost:27017/${env.db}`,{ useNewUrlParser: true });
 
 //Get the default connection
 var db = mongoose.connection;
