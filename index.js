@@ -28,13 +28,16 @@ const path = require('path');
 console.log(env.name);
 console.log(path.join(__dirname,env.asset_path,'scss'));
 
-app.use(sassMiddleware({
-    src: path.join(__dirname,env.asset_path,'scss'),
-    dest: path.join(__dirname,env.asset_path,'css'),
-    debug: true,
-    outputStyle: 'extended',
-    prefix: '/css'
-}));
+if(env.name == 'development'){
+    app.use(sassMiddleware({
+        src: path.join(__dirname,env.asset_path,'scss'),
+        dest: path.join(__dirname,env.asset_path,'css'),
+        debug: true,
+        outputStyle: 'extended',
+        prefix: '/css'
+    }));
+}
+
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(expressLayouts);
