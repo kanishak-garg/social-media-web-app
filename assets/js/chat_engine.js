@@ -34,6 +34,28 @@ class chatEngine{
             let msg = $('#message').val();
 
             if(msg != ''){
+                $.ajax({
+                    type: 'post',
+                    url: '/send-message',
+                    data: msg,
+                    success: function(data){
+                        let newMessage = $('<li>');
+                        messageType = 'self-message';
+                        
+                        newMessage.append($('<sub>',{
+                            'html':data.data.newMessage.user.name
+                        }));
+    
+                        newMessage.append($('<span>',{
+                            'html':data.data.newMessage.content
+                        }));
+    
+                        newMessage.addClass(messageType);
+                        $('#chatbox').append(newMessage);
+                }, error: function(error){
+                        console.log(error.responseText);
+                    }
+                });
                 self.socket.emit('send_message',{
                     message:msg,
                     user_email:self.userEmail,

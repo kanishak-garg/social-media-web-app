@@ -5,7 +5,7 @@ module.exports.send_message = async function(req,res){
     try{
         if (req.xhr){
             let newMessage = await Message.create({
-                    content:req.body.message,
+                    content:req.body,
                     user: req.user._id
                 });
                 newMessage.populate('user','name email').execPopulate();
