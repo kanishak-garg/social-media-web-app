@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
@@ -37,6 +38,9 @@ if(env.name == 'development'){
         prefix: '/css'
     }));
 }
+
+
+app.use(logger(env.morgan.mode,env.morgan.options));
 
 app.use(express.urlencoded());
 app.use(cookieParser());
