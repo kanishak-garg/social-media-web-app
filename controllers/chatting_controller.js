@@ -4,11 +4,12 @@ const chatRoom = require('../models/chatRooms');
 module.exports.send_message = async function(req,res){    
     try{
         if (req.xhr){
+            console.log('req body',req.body);
             let newMessage = await Message.create({
-                    content:req.body,
+                    content:req.body.message,
                     user: req.user._id
                 });
-                newMessage.populate('user','name email').execPopulate();
+                await newMessage.populate('user','name email').execPopulate();
                 let room = await chatRoom.findOne({name:'codeial'});
                 if(!room){
                     room = await chatRoom.create({
@@ -30,5 +31,6 @@ module.exports.send_message = async function(req,res){
             req.flash('error',"message cant be sent");
             return res.redirect('back');
         }
-   
 }
+
+

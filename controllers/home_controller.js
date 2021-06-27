@@ -23,7 +23,13 @@ try{
         let currentUser = await User.findById(req.user._id).populate('friends');
         friends = currentUser.friends;
 
-        room = await ChatRoom.findOne({name:'codeial'}).populate('messages');
+        room = await ChatRoom.findOne({name:'codeial'}).populate({
+            path: 'messages',
+            populate: {
+                path: 'user',
+                select: 'name'
+            }
+        });
         if(!room){
             room = await ChatRoom.create({
                 name:'codeial'
