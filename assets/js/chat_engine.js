@@ -11,6 +11,11 @@ class chatEngine{
         }
     }
 
+    // before i made the ajax calles during receiving of messages means "on receive message" 
+    // but it lead to multiple copies of single message as many people in group as many copies
+    // then i moved ajax call to send so that at time pf sending message will be created in database and
+    // it will be passed to receiving functions
+
     connectionHandler() {
         let self = this;
 
