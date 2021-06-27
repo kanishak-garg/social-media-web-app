@@ -3,7 +3,7 @@
     <ul id="chatbox">
         <% for(let i in chat_room.messages){ %>
             <% let messageType = "other-message" %>
-            <% if(chat_room.messages[i].user == locals.user.id){%>
+            <% if(chat_room.messages[i].user._id == locals.user.id){%>
                 
                 <% messageType = "self-message" %>
             <%} %>
