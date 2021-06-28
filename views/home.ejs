@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="/css/home.css">
-<link rel="stylesheet" type="text/css" href="/css/chat.css">
+<link rel="stylesheet" type="text/css" href="<%= assetPath('css/home.css') %>">
+<link rel="stylesheet" type="text/css" href="<%= assetPath('css/chat.css') %>">
 <h1>codial / <%= title %>
 </h1>
 <div id="home-container">
@@ -39,10 +39,10 @@
 </div>
 
 
-<script src="/js/comments.js"></script>
-<script src="/js/home_posts.js"></script>
+<script src= "<%= assetPath('js/comments.js') %>"></script>
+<script src= "<%= assetPath('js/home_posts.js') %>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
-<script src="/js/chat_engine.js"></script>
+<script src="<%= assetPath('js/chat_engine.js') %>"></script>
 <% if(locals.user){ %>
     <script>
         new chatEngine('chatter','<%= user.email %>');

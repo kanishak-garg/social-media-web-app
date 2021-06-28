@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('./config/environment');
 const logger = require('morgan');
 const app = express();
+require('./config/view-helpers')(app);
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
@@ -45,8 +46,8 @@ app.use(logger(env.morgan.mode,env.morgan.options));
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(expressLayouts);
-
-app.use(express.static('env.asset_path'));
+console.log('asset path',env.asset_path);
+app.use(express.static(env.asset_path));
 // make upload path available to browser
 app.use('/uploads',express.static(__dirname + '/uploads'));
 //set up the view engine
