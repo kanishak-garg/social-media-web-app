@@ -1,6 +1,6 @@
 
-// const auth_credential = require('../credentials/nodemailer_credential');
-// const credentials = require('../credentials/google_credential');
+const auth_credential = require('../credentials/nodemailer_credential');
+const credentials = require('../credentials/google_credential');
 
 const fs = require('fs');
 const path = require('path');
@@ -24,14 +24,14 @@ const development = {
         host: "smtp.gmail.com",
         port: 587,
         secure: false, // true for 465, false for other ports
-        // auth: {
-        //     user: auth_credential.user,
-        //     pass: auth_credential.password 
-        // },
+        auth: {
+            user: auth_credential.user,
+            pass: auth_credential.password 
+        },
       },
-    // google_client_id: credentials.clientID,
-    // google_client_secret: credentials.clientSecret,
-    // google_call_back_URL: credentials.callbackURL,
+    google_client_id: credentials.clientID,
+    google_client_secret: credentials.clientSecret,
+    google_call_back_URL: credentials.callbackURL,
     jwt_secret: 'secret',
     morgan:{
         mode:'dev',
