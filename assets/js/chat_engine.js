@@ -4,7 +4,7 @@ class chatEngine{
         this.userEmail = `${userEmail}`;
         // io comes from socket.io cdn in home.js(accessable globally)
         // 5000 is socket servers port
-        this.socket = io.connect('http://3.92.190.236/:5000');
+        this.socket = io.connect('http://3.92.190.236:5000');
 
         if(this.userEmail){
             this.connectionHandler();

@@ -43,7 +43,7 @@ if(env.name == 'development'){
 
 app.use(logger(env.morgan.mode,env.morgan.options));
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(expressLayouts);
 console.log('asset path',env.asset_path);
