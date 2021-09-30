@@ -1,6 +1,13 @@
 # social-media-web-app
 it is a social media website built on Node.js Express.js and mongoDB.
 
+- HOW TO RUN
+  - npm install
+  - download the ubuntu LTS and start the redis-server on it.
+  - npm start or npm run index.js
+  - for google authenticatiom set up google api service [visit google api services](https://console.developers.google.com)
+
+
 - languages/libraries used
   - HTML
   - CSS
